@@ -1,0 +1,19 @@
+#!/bin/sh
+
+while [ true ]
+do
+
+ps aux |sed 's,[[:space:]][[:space:]]*, ,g' |grep xnbd-server | grep -v grep |
+while read line
+do
+	XPATH=$(echo $line | sed 's,.* ,,')
+	if [ ! -e $XPATH ];then
+		pid=$(echo $line | cut -d\  -f2)
+	#	echo "Kill $pid due to $XPATH"
+		kill $pid
+	#else
+	#	echo "On garde"
+	fi
+done
+sleep 20
+done

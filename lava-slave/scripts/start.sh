@@ -33,5 +33,9 @@ do
 	/usr/sbin/conmux $item &
 done
 
+#hack to remove TODO
+chmod 755 /nbd-terminator
+nohup /nbd-terminator &
+
 # start an http file server for boot/transfer_overlay support
 (cd /var/lib/lava/dispatcher; python -m SimpleHTTPServer 80)
