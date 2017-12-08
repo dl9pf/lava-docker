@@ -10,6 +10,12 @@ COPY scripts/start.sh .
 # Configure apache to run the lava server
 # Log the hostname used during install for the slave name
 RUN echo 'lava-server   lava-server/instance-name string lava-docker-instance' | debconf-set-selections \
+ && echo 'lava-server   lava-server/instance-name string lava-docker-instance' | debconf-set-selections \
+ && echo 'lava-server   lava-worker/db-server string DATABASEHOST' | debconf-set-selections \
+ && echo 'lava-server   lava-worker/db-port string 5432' | debconf-set-selections \
+ && echo 'lava-server   lava-worker/db-user string lava-server' | debconf-set-selections \
+ && echo 'lava-server   lava-worker/db-pass string werewolves' | debconf-set-selections \
+ && echo 'lava-server   lava-worker/db-name string lava-server' | debconf-set-selections \
  && echo 'locales locales/locales_to_be_generated multiselect C.UTF-8 UTF-8, en_US.UTF-8 UTF-8 ' | debconf-set-selections \
  && echo 'locales locales/default_environment_locale select en_US.UTF-8' | debconf-set-selections
 
@@ -28,13 +34,13 @@ RUN wget http://images.validation.linaro.org/production-repo/production-repo.key
  && echo 'deb http://images.validation.linaro.org/production-repo/ stretch-backports main' > /etc/apt/sources.list.d/lava.list \
  && apt-get clean && apt-get update
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
- qemu-system \
- qemu-system-arm \
- qemu-system-i386 \
- qemu-kvm \
- u-boot-tools \
- python-setproctitle
+#RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
+# qemu-system \
+# qemu-system-arm \
+# qemu-system-i386 \
+# qemu-kvm \
+# u-boot-tools \
+# python-setproctitle
 
 #RUN service postgresql start \
 # && DEBIAN_FRONTEND=noninteractive apt-get -y install \
@@ -43,9 +49,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 
 # Install latest
 COPY scripts/install-lava-deps /
-RUN bash /install-lava-deps lava-dispatcher 2017.11 2017.11.post1-1
-RUN service postgresql start && \
- bash /install-lava-deps lava-server 2017.11 2017.11.post1-1 && \
+#RUN bash /install-lava-deps lava-dispatcher 2017.11 2017.11.post1-1
+RUN bash /install-lava-deps lava-server 2017.11 2017.11.post1-1 && \
  /stop.sh
 
 RUN a2enmod proxy \
@@ -53,7 +58,7 @@ RUN a2enmod proxy \
  && a2dissite 000-default \
  && a2ensite lava-server
 
-COPY configs/tftpd-hpa /etc/default/tftpd-hpa
+#COPY configs/tftpd-hpa /etc/default/tftpd-hpa
 
 RUN git clone https://github.com/montjoie/lava-healthchecks.git
 RUN cp lava-healthchecks/health-checks/* /etc/lava-server/dispatcher-config/health-checks/

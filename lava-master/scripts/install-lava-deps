@@ -64,13 +64,14 @@ lava-server)
 	python-sphinx-bootstrap-theme \
 	python-mocker \
 	systemd-sysv \
-	tftpd-hpa \
-	lxc \
 	sudo \
 	telnet \
 	bridge-utils || exit $?
 
-	DEBIAN_FRONTEND=noninteractive apt-get -y install lava-tool lavapdu-client lava-coordinator || exit $?
+	DEBIAN_FRONTEND=noninteractive apt-get -y install lava-tool || exit $?
+#	tftpd-hpa \
+#	lxc \
+#
 ;;
 lava-dispatcher)
 	# build dependencies
