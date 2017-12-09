@@ -7,6 +7,7 @@ import argparse
 import yaml
 import string
 import socket
+import pprint
 
 # Defaults
 boards_yaml = "boards.yaml"
@@ -36,9 +37,15 @@ template_device_pdu = string.Template("""
 {% set power_on_command = 'pduclient --daemon ${pdudaemon} --hostname ${pduhost} --port ${port} --command=on' %}
 """)
 template_device_pdu_generic = string.Template("""
-{% set hard_reset_command = '${hard_reset_command}' %}
 {% set power_off_command = '${power_off_command}' %}
 {% set power_on_command = '${power_on_command}' %}
+""")
+template_device_pdu_generic_hard = string.Template("""
+{% set hard_reset_command = '${hard_reset_command}' %}
+""")
+
+template_device_connection_command = string.Template("""
+{% set connection_command = '${connection_command}' %}
 """)
 
 template_udev_serial = string.Template("""#
@@ -87,10 +94,16 @@ def main(args):
                 delay_opt = ""
                 device_line += template_device_pdu.substitute(port=port, pdudaemon=daemon, pduhost=host)
             elif b.has_key("pdu_generic"):
-                hard_reset_command = b["pdu_generic"]["hard_reset_command"]
                 power_off_command = b["pdu_generic"]["power_off_command"]
                 power_on_command = b["pdu_generic"]["power_on_command"]
-                device_line += template_device_pdu_generic.substitute(hard_reset_command=hard_reset_command, power_off_command=power_off_command, power_on_command=power_on_command)
+                if b["pdu_generic"].has_key("hard_reset_command"):
+                    print("haskey\n")
+                    hard_reset_command = b["pdu_generic"]["hard_reset_command"]
+                    device_line += template_device_pdu_generic_hard.substitute(hard_reset_command=hard_reset_command, power_off_command=power_off_command, power_on_command=power_on_command)
+                device_line += template_device_pdu_generic.substitute(power_off_command=power_off_command, power_on_command=power_on_command)
+            if b.has_key("connection_command"):
+                connection_command = b["connection_command"]
+                device_line += template_device_connection_command.substitute(connection_command=connection_command)
             if b.has_key("uart"):
                 uart = b["uart"]
                 baud = b["uart"].get("baud", baud_default)

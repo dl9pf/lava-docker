@@ -1,15 +1,53 @@
 lava_server_users:
   - name: admin
-    token: longrandomtokenadmin
+    token: admintoken
     password: admin
     superuser: yes
     staff: yes
-  - name: example
-    token: longrandomtoken
-    password: examplepassword
+  - name: dl9pf
+    token: dl9pftoken
+    password: dl9pf
+    superuser: yes
+    staff: yes
+  - name: user1
+    token: user1token
+    password: user1
+  - name: user2
+    token: user2token
+    password: user2
+  - name: user3
+    token: user3token
+    password: user3
+  - name: user4
+    token: user4token
+    password: user4
+  - name: user5
+    token: user5token
+    password: user5
+  - name: user6
+    token: user6token
+    password: user6
+  - name: user7
+    token: user7token
+    password: user7
+  - name: user8
+    token: user8token
+    password: user8
+  - name: user9
+    token: user9token
+    password: user9
+  - name: user10
+    token: user10token
+    password: user10
+  - name: user11
+    token: user11token
+    password: user11
+  - name: user12
+    token: user12token
+    password: user12
 
 callback_tokens:
-  - filename: example
-    username: example
-    token: longrandomtokencallback
-    description: example-callback
+  - filename: dl9pf
+    username: dl9pf
+    token: dl9pftokencallback
+    description: dl9pf-callback
