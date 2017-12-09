@@ -4,37 +4,43 @@ lab-slave-0:
       type: qemu
     beaglebone-01:
       type: beaglebone-black
-      connection_command: telnet 192.168.2.234 7001
+      connection_command: telnet 192.168.2.41 7001
       pdu_generic:
+        hard_reset_command: curl http://192.168.2.41/board/1/reset/
         power_off_command: curl http://192.168.2.41/board/1/off/
         power_on_command: curl http://192.168.2.41/board/1/on/
     beaglebone-02:
       type: beaglebone-black
-      connection_command: telnet 192.168.2.234 7002
+      connection_command: telnet 192.168.2.41 7002
       pdu_generic:
+        hard_reset_command: curl http://192.168.2.41/board/2/reset/
         power_off_command: curl http://192.168.2.41/board/2/off/
         power_on_command: curl http://192.168.2.41/board/2/on/
     beaglebone-03:
       type: beaglebone-black
-      connection_command: telnet 192.168.2.234 7003
+      connection_command: telnet 192.168.2.41 7003
       pdu_generic:
+        hard_reset_command: curl http://192.168.2.41/board/3/reset/
         power_off_command: curl http://192.168.2.41/board/3/off/
         power_on_command: curl http://192.168.2.41/board/3/on/
     beaglebone-04:
       type: beaglebone-black
-      connection_command: telnet 192.168.2.234 7004
+      connection_command: telnet 192.168.2.41 7004
       pdu_generic:
+        hard_reset_command: curl http://192.168.2.41/board/4/reset/
         power_off_command: curl http://192.168.2.41/board/4/off/
         power_on_command: curl http://192.168.2.41/board/4/on/
     beaglebone-05:
       type: beaglebone-black
-      connection_command: telnet 192.168.2.234 7005
+      connection_command: telnet 192.168.2.41 7005
       pdu_generic:
+        hard_reset_command: curl http://192.168.2.41/board/5/reset/
         power_off_command: curl http://192.168.2.41/board/5/off/
         power_on_command: curl http://192.168.2.41/board/5/on/
     beaglebone-06:
       type: beaglebone-black
-      connection_command: telnet 192.168.2.234 7006
+      connection_command: telnet 192.168.2.41 7006
       pdu_generic:
+        hard_reset_command: curl http://192.168.2.41/board/6/reset/
         power_off_command: curl http://192.168.2.41/board/6/off/
         power_on_command: curl http://192.168.2.41/board/6/on/
